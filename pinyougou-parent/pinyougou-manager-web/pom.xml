@@ -93,7 +93,25 @@
 		<groupId>org.springframework.security</groupId>
 		<artifactId>spring-security-config</artifactId>
 	</dependency>
+
+	<dependency>
+		<groupId>com.pinyougou</groupId>
+		<artifactId>pinyougou-content-interface</artifactId>
+		<version>0.0.5-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.pinyougou</groupId>
+		<artifactId>pinyougou-common</artifactId>
+		<version>0.0.5-SNAPSHOT</version>
+	</dependency>
 	
+	
+	
+	<dependency>
+		<groupId>org.apache.activemq</groupId>
+		<artifactId>activemq-client</artifactId>
+		<version>5.13.4</version>
+	</dependency>
    </dependencies>
   
   

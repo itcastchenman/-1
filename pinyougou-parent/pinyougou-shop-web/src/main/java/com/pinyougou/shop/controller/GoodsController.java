@@ -68,7 +68,12 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public Result update(@RequestBody TbGoods goods){
+	public Result update(@RequestBody Goods goods){
+		Goods goods2 = goodsService.findOne(goods.getGoods().getId());
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		if (!goods.getGoods().getSellerId().equals(sellerId)||!goods2.getGoods().getSellerId().equals(sellerId)) {
+			return new Result(false, "操作非法");
+		}
 		try {
 			goodsService.update(goods);
 			return new Result(true, "修改成功");
@@ -84,7 +89,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbGoods findOne(Long id){
+	public Goods findOne(Long id){
 		return goodsService.findOne(id);		
 	}
 	
@@ -113,7 +118,21 @@ public class GoodsController {
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		goods.setSellerId(sellerId);
+		
 		return goodsService.findPage(goods, page, rows);		
+	}
+	
+	@RequestMapping("/updateIsMarketable")
+	public Result updateIsMarketable(Long[] ids,String status) {
+		try {
+			goodsService.updateIsMarketable(ids,status);
+			return new Result(true, "成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new Result(false, "失败");
+		}
 	}
 	
 }
